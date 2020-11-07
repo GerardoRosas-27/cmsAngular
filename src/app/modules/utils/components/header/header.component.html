@@ -1,1 +1,16 @@
-<p>header works!</p>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>{{ nombreAPP }}</span>
+      <span class="example-spacer"></span>
+      <div class="container">
+        <div class="row justify-content-center">
+            <button (click)="onNavegacion('inicio')" class="mx-2" mat-raised-button color="primary" aria-label="button de navegación">
+                Inicio <mat-icon>menu</mat-icon>
+            </button>
+            <button (click)="onNavegacion('admin')" class="mx-2" mat-raised-button color="primary" aria-label="button de navegación">
+                Admin <mat-icon>menu</mat-icon>
+            </button>
+          </div>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>

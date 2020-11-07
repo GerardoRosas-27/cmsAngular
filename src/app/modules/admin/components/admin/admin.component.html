@@ -1,1 +1,10 @@
-<p>admin works!</p>
+<div class="row">
+    <app-banner></app-banner>
+</div>
+<div class="containe">
+    <div class="row">
+        <ng-container *ngIf="statusCards">
+            <app-card class="col-md-4 py-3 px-2" *ngFor="let card of cards" [card]="card" [admin]="true"></app-card>
+        </ng-container>
+    </div>
+</div>

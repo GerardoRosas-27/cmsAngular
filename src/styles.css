@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+button:active, button:focus, button:active:focus, button.active:focus {
+    outline: none !important;
+    border: none !important;
+}
+
+.mat-dialog-container{
+    background: none!important;
+    box-shadow: none!important;
+    padding: 20px!important;
+}

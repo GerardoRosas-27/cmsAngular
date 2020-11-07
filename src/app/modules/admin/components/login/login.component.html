@@ -1,0 +1,32 @@
+<mat-card class="mat-elevation-z8">
+    <h1 mat-dialog-title class="text-center">{{data.titulo}}</h1>
+    <div mat-dialog-content class="barra">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="row justify-content-center">
+                    <mat-form-field class="col-12">
+                        <mat-label>Usuario</mat-label>
+                        <input type="text" matInput [(ngModel)]="data.username" required>
+                    </mat-form-field>
+                    <mat-form-field class="col-12">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput [(ngModel)]="data.contra" [type]="tipoContra ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="tipoContra = !tipoContra"
+                            [attr.aria-label]="'Ocultar password'" [attr.aria-pressed]="tipoContra">
+                            <mat-icon>{{tipoContra ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div mat-dialog-actions class="row justify-content-center">
+        <button mat-raised-button color="warn" (click)="onNoClick()">
+            <mat-icon>backspace</mat-icon>
+            Cerrar
+        </button>
+        <button mat-raised-button color="primary" (click)="onIniciarSesion()" cdkFocusInitial>
+            <mat-icon> check </mat-icon> Iniciar
+        </button>
+    </div>
+</mat-card>
