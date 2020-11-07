@@ -51,14 +51,12 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  
-
   getCards() {
     this.cargarSpiner = this.dialog.open(SpinerCargaComponent, {
       width: '300px',
       height: '300px',
     });
-    this.cardsService.getCards().subscribe(
+    this.cardsService.getCardsPage(1).subscribe(
       (result: ResponseMensaje) => {
         this.cargarSpiner.close();
         if (result.cards) {

@@ -1,3 +1,15 @@
+<div class="row justify-content-center">
+    <div class="col-md-4 col-lg-2">
+        <ng-container *ngIf="statusSelectP">
+            <app-select-busqueda [seleccionadoId]="selectPage"
+                (selectSeleccionado)="onSelectSeleccionadoP($event)" [nombreId]="nombreIdP"
+                [nombreText]="nombreTextP" [dataSelect]="dataSelectP" [nombreLabel]="nombreLabelP">
+            </app-select-busqueda>
+        </ng-container>
+    </div>
+</div>
+
+
 <div class="row">
     <app-banner></app-banner>
 </div>

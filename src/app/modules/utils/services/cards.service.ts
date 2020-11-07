@@ -21,8 +21,8 @@ export class CardsService {
     return headers;
   }
 
-  getCards() {
-    return this.http.get<any>(this.apiCard);
+  getCardsPage(id: number) {
+    return this.http.get<any>(this.apiCard + "/page/" + id );
   }
   getCard(id: number) {
     return this.http.get<any>(this.apiCard + "/" + id );

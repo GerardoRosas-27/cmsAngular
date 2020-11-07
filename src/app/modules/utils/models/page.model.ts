@@ -1,4 +1,4 @@
-export interface Page {
+export class Page {
     id?: number;
     nombre: string;
     titulo: string;

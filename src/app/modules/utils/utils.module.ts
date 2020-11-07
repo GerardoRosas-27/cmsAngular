@@ -6,6 +6,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MaterialUiModule } from '../material-ui/material-ui.module';
 import { SpinerCargaComponent } from './components/spiner-carga/spiner-carga.component';
+import { SelectBusquedaComponent } from './components/select-busqueda/select-busqueda.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const modulesUtils = [
@@ -13,7 +14,8 @@ const modulesUtils = [
   BannerComponent,
   HeaderComponent,
   FooterComponent,
-  SpinerCargaComponent
+  SpinerCargaComponent,
+  SelectBusquedaComponent
 ]
 
 

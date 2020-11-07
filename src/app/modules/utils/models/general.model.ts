@@ -18,4 +18,8 @@ export interface ResponseMensaje {
     username?: string;
     token?: string;
     rol?: string;
+} 
+export interface DataSelect{
+    id: string;
+    text: string;
 }
