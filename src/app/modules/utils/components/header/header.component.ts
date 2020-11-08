@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   @Input() nombreAPP?: string;
-
+  @Input() editar?: boolean;
   
   constructor(private router: Router) { 
     this.nombreAPP = this.nombreAPP ? this.nombreAPP: "Mi APP"; 
@@ -20,9 +20,5 @@ export class HeaderComponent implements OnInit {
   console.log("entro a la navegacion");
     this.router.navigate([page]);
   }
-  setNombreAPP(nombre: string){
-    this.nombreAPP = nombre;
-  }
-  
 
 }

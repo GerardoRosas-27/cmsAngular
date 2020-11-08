@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ObservablesService } from '../../services/observables.service';
 
 @Component({
   selector: 'app-footer',
@@ -8,15 +9,12 @@ import { Component, Input, OnInit } from '@angular/core';
 export class FooterComponent implements OnInit {
 
   @Input() content?: string;
-
-  constructor() { 
+  @Input() editar?: boolean;
+  
+  constructor(private observableService: ObservablesService) { 
     this.content = this.content ? this.content: "";
   }
-
   ngOnInit(): void {
-  }
-  setContent(content: string){
-    this.content = content;
   }
 
 }

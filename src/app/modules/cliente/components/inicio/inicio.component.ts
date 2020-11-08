@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { HeaderComponent } from 'src/app/modules/utils/components/header/header.component';
 import { SpinerCargaComponent } from 'src/app/modules/utils/components/spiner-carga/spiner-carga.component';
 import { Card } from 'src/app/modules/utils/models/cards.model';
 import { ResponseMensaje } from 'src/app/modules/utils/models/general.model';
 import { Page } from 'src/app/modules/utils/models/page.model';
 import { AlertasService } from 'src/app/modules/utils/services/alertas.service';
 import { CardsService } from 'src/app/modules/utils/services/cards.service';
+import { ObservablesService } from 'src/app/modules/utils/services/observables.service';
 import { PageService } from 'src/app/modules/utils/services/page.service';
 
 @Component({
@@ -23,14 +25,15 @@ export class InicioComponent implements OnInit {
   statusSelectP: boolean = false;
   nombreIdP: string = 'id';
   nombreTextP: string = 'nombre';
-  nombreLabelP: string = 'Nombre Pagina';
+  nombreLabelP: string = 'Selecciona la página';
   dataSelectP: Page[] = new Array();
 
   constructor(
     private cardsService: CardsService,
     private pageService: PageService,
     private dialog: MatDialog,
-    private alert: AlertasService) { }
+    private alert: AlertasService,
+    private observableService: ObservablesService) { }
 
   ngOnInit(): void {
     this.getPaginas();
@@ -75,6 +78,7 @@ export class InicioComponent implements OnInit {
         if (result.pages.length > 0) {
           this.selectPage = result.pages[0].id.toString();
           this.infoPageDefault = result.pages[0];
+          this.setHeaderFooter(this.infoPageDefault);
           this.getCardsPage(this.infoPageDefault.id);
           this.dataSelectP = result.pages;
           this.statusSelectP = true;
@@ -96,6 +100,7 @@ export class InicioComponent implements OnInit {
         this.cargarSpiner ? this.cargarSpiner.close() : null;
         if (result.pages.length > 0) {
           this.infoPageDefault = result.pages[0];
+          this.setHeaderFooter(this.infoPageDefault);
           this.getCardsPage(this.infoPageDefault.id);
         }
       }, error => {
@@ -103,6 +108,11 @@ export class InicioComponent implements OnInit {
         this.cargarSpiner ? this.cargarSpiner.close() : null;
       }
     )
+  }
+
+  setHeaderFooter(infoPageDefault: Page){
+    this.observableService.setHader(infoPageDefault.nombre);
+    this.observableService.setFooter(infoPageDefault.footer);
   }
 
 

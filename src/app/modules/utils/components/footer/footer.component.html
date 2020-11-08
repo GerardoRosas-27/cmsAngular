@@ -1,5 +1,14 @@
 <footer class="edit-footer">
-    <div class="container py-5">
-        <h4 class="text-center">{{ content }}</h4>
+    <div class="container pt-4">
+        <ng-container *ngIf="editar">
+            <mat-form-field class="col-12" appearance="fill">
+                <mat-label>Contenido:</mat-label>
+                <input [(ngModel)]="content" matInput>
+            </mat-form-field>
+        </ng-container>
+        <ng-container *ngIf="!editar">
+            <h4 class="text-center">{{ content }}</h4>
+        </ng-container>
+        
     </div>
 </footer>

@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Card } from '../../models/cards.model';
-import { ResponseMensaje } from '../../models/general.model';
-import { CardsService } from '../../services/cards.service';
 
 @Component({
   selector: 'app-card',
@@ -21,7 +19,7 @@ export class CardComponent implements OnInit {
   cardTemporal: Card;
   selectFile: any;
   originalImagen: string;
-  constructor(private cardsService: CardsService) {
+  constructor() {
     console.log('data card: ', this.card);
     this.admin = this.admin ? this.admin : false;
     this.nuevo = this.nuevo ? this.nuevo : false;

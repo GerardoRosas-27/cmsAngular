@@ -3,6 +3,7 @@ export class Page {
     nombre: string;
     titulo: string;
     descripcion: string;
-    imagen: string;
+    imagen?: string;
+    boton: string;
     footer: string;
 }

@@ -1,5 +1,5 @@
-<app-header></app-header>
-<div class="container">
-    <router-outlet></router-outlet>
-</div>
-<app-footer></app-footer>
+<app-header [nombreAPP]="nombreAPP" [editar]="editar"></app-header>
+
+<router-outlet></router-outlet>
+
+<app-footer [content]="descripcion" [editar]="editar"></app-footer>

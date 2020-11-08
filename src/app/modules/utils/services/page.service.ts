@@ -27,7 +27,7 @@ export class PageService {
     return this.http.get<any>(this.apiPage + "/" + id );
   }
 
-  putPage(id: number, page: Page) {
+  putPage(id: number, page: FormData) {
     return this.http.put<any>(this.apiPage + "/"+ id, page, { headers: this.createHeader() });
   }
 

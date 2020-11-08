@@ -1,16 +1,25 @@
 <mat-toolbar color="primary">
-    <mat-toolbar-row>
+  <mat-toolbar-row>
+    <ng-container *ngIf="editar">
+      <mat-form-field class="col-12" appearance="fill">
+        <mat-label>Nombre de la Página:</mat-label>
+        <input [(ngModel)]="nombreAPP" matInput>
+      </mat-form-field>
+    </ng-container>
+    <ng-container *ngIf="!editar">
       <span>{{ nombreAPP }}</span>
-      <span class="example-spacer"></span>
       <div class="container">
         <div class="row justify-content-center">
-            <button (click)="onNavegacion('inicio')" class="mx-2" mat-raised-button color="primary" aria-label="button de navegación">
-                Inicio <mat-icon>menu</mat-icon>
-            </button>
-            <button (click)="onNavegacion('admin')" class="mx-2" mat-raised-button color="primary" aria-label="button de navegación">
-                Admin <mat-icon>menu</mat-icon>
-            </button>
-          </div>
+          <button (click)="onNavegacion('inicio')" class="mx-2" mat-raised-button color="primary"
+            aria-label="button de navegación">
+            Inicio <mat-icon>menu</mat-icon>
+          </button>
+          <button (click)="onNavegacion('admin')" class="mx-2" mat-raised-button color="primary"
+            aria-label="button de navegación">
+            Admin <mat-icon>menu</mat-icon>
+          </button>
+        </div>
       </div>
-    </mat-toolbar-row>
-  </mat-toolbar>
+    </ng-container>
+  </mat-toolbar-row>
+</mat-toolbar>
