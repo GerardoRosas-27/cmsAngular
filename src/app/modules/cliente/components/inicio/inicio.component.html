@@ -1,0 +1,23 @@
+<div class="container">
+    <div class="row justify-content-center pt-3">
+        <div class="col-md-6 col-lg-3">
+            <ng-container *ngIf="statusSelectP">
+                <app-select-busqueda [seleccionadoId]="selectPage"
+                    (selectSeleccionado)="onSelectSeleccionadoP($event)" [nombreId]="nombreIdP"
+                    [nombreText]="nombreTextP" [dataSelect]="dataSelectPage" [nombreLabel]="nombreLabelP">
+                </app-select-busqueda>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<app-banner [page]="infoPageDefault"></app-banner>
+
+<div class="container principal">
+    <div class="row">
+        <ng-container *ngIf="statusCards">
+            <app-card class="col-md-4 py-3 px-2" *ngFor="let card of cards" [card]="card" [admin]="false"></app-card>
+        </ng-container>
+    </div>
+</div>
+

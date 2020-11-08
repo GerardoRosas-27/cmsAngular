@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+button:active, button:focus, button:active:focus, button.active:focus {
+    outline: none !important;
+    border: none !important;
+}
+
+.mat-dialog-container{
+    background: none!important;
+    box-shadow: none!important;
+    padding: 20px!important;
+}
+.principal{
+    padding-bottom: 90px;    
+}
+
+.fileLogo{
+    display: none;
+}
+
+.btnfiles{
+    background-color: rgba(75, 165, 255, 0.87);
+    width: 100%;
+    height: auto;
+    padding: 20px;
+    position:relative;
+    font-family: 'Open Sans', sans-serif;
+    font-size:20px;
+    text-align: center;
+    text-decoration:none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all .5s;
+}
+        
+.btnfiles:hover{
+  background: #fff;
+  color: rgb(54, 54, 54);
+  border: 5px dashed rgba(75, 165, 255, 0.87);
+  border-radius: 5px;
+}

@@ -1,0 +1,75 @@
+
+<div class="container">
+    <div class="row justify-content-center">
+        <ng-container *ngIf="admin">
+            <ng-container *ngIf="nuevo">
+                <button class="mx-2" (click)="onGuardar()" color="primary" mat-mini-fab>
+                    <mat-icon>save</mat-icon>
+                </button>
+                <button class="mx-2" (click)="onCancelar()" color="warn" mat-mini-fab>
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </ng-container>
+            <ng-container *ngIf="!nuevo">
+                <button [disabled]="statusEditar" class="mx-2" (click)="onEditar()" color="primary" mat-mini-fab>
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button [disabled]="!statusEditar" class="mx-2" (click)="onActualizar()" color="primary" mat-mini-fab>
+                    <mat-icon>save</mat-icon>
+                </button>
+                <button [disabled]="!statusEditar" class="mx-2" (click)="onCancelarLocal()" color="warn" mat-mini-fab>
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>
+
+
+<div class="banner">
+    <div class="dj-bg">
+        <ng-container *ngIf="statusEditar">
+
+            <label [for]="'page' + page.id" class="btnfiles">selecciona una imagen</label>
+            <input [id]="'page' + page.id" type="file" (change)="renderImagen($event)" class="fileLogo">
+    
+        </ng-container>
+        <img class="img-fluid" [src]="page.imagen" [alt]="page.titulo">
+        <div class="content-text">
+            <ng-container *ngIf="statusEditar">
+                <mat-form-field class="col-12" appearance="fill">
+                    <mat-label>Título:</mat-label>
+                    <input [(ngModel)]="page.titulo" matInput [value]="page.titulo">
+                </mat-form-field>
+            </ng-container>
+            <ng-container *ngIf="!statusEditar">
+                <h1><b>{{ page.titulo }}</b></h1>
+            </ng-container>
+            <ng-container *ngIf="statusEditar">
+                <mat-form-field class="col-12" appearance="fill">
+                    <mat-label>Descripción:</mat-label>
+                    <textarea [(ngModel)]="page.descripcion" matInput>{{page.descripcion}}</textarea>
+                </mat-form-field>
+            </ng-container>
+            <ng-container *ngIf="!statusEditar">
+                <p>{{ page.descripcion }}</p>
+            </ng-container>
+            
+            <ng-container *ngIf="statusEditar">
+                <mat-form-field class="col-12" appearance="fill">
+                    <mat-label>Botón:</mat-label>
+                    <input [(ngModel)]="page.boton" matInput [value]="page.boton">
+                </mat-form-field>
+                <mat-form-field class="col-12" appearance="fill">
+                    <mat-label>Link:</mat-label>
+                    <input [(ngModel)]="page.link" matInput [value]="page.link">
+                </mat-form-field>
+            </ng-container>
+            <ng-container *ngIf="!statusEditar">
+                <p><a [href]="page.link" target="_blank" rel="noopener noreferrer"><label class="boton-banner">{{ page.boton }}</label></a>
+                </p>
+            </ng-container>
+            
+        </div>
+    </div>            
+</div>

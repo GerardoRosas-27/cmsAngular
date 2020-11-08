@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="row justify-content-center">
+                <button [disabled]="nuevoPage" class="mx-2" (click)="onNuevoPage()" color="primary" mat-mini-fab>
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="row  pt-3">
+                <div class="col-md-6">
+                    <ng-container *ngIf="statusSelectP">
+                        <app-select-busqueda [seleccionadoId]="selectPage" (selectSeleccionado)="onSelectSeleccionadoP($event)"
+                            [nombreId]="nombreIdP" [nombreText]="nombreTextP" [dataSelect]="dataSelectP"
+                            [nombreLabel]="nombreLabelP">
+                        </app-select-busqueda>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-banner [page]="infoPageDefault" [admin]="true" [nuevo]="nuevoPage" [statusEditar]="nuevoPage" (actualizarpage)="onActualizarPage($event)" (guardarpage)="onGuardarPage($event)" (cancelarpage)="onCancelarPage($event)">
+</app-banner>
+
+<div class="container principal">
+    <div class="row">
+        <button class="mx-2" (click)="nuevoCard = true" color="primary" mat-mini-fab>
+            <mat-icon>add</mat-icon>
+        </button>
+        <ng-container *ngIf="nuevoCard">
+            <div class="row justify-content-center">
+                <app-card class="col-md-6 px-2" [admin]="true" [nuevo]="nuevoCard" [statusEditar]="nuevoCard"
+                    [selectPage]="selectPage" [pages]="dataSelectP" (guardarCard)="onGuardarNuevoCard($event)" (cancelarCard)="onCancelarNuevoCard($event)"></app-card>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!nuevoCard">
+            <ng-container *ngIf="statusCards">
+                <app-card class="col-md-4 py-3 px-2" *ngFor="let card of cards" [card]="card" [admin]="true"
+                    [selectPage]="selectPage" [pages]="dataSelectP" (actualizarCard)="onActualizarCard($event)" (eliminarCard)="onEliminarCard($event)">
+                </app-card>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<mat-card class="mat-elevation-z8">
+    <div class="row justify-content-center">
+        <ng-container *ngIf="admin">
+            <ng-container *ngIf="nuevo">
+                <button class="mx-2" (click)="onGuardar()" color="primary" mat-mini-fab>
+                    <mat-icon>save</mat-icon>
+                </button>
+                <button class="mx-2" (click)="onCancelar()" color="warn" mat-mini-fab>
+                    <mat-icon>cancel</mat-icon>
+                </button>
+            </ng-container>
+            <ng-container *ngIf="!nuevo">
+                <button [disabled]="statusEditar" class="mx-2" (click)="onEditar()" color="primary" mat-mini-fab>
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button [disabled]="!statusEditar" class="mx-2" (click)="onActualizar()" color="primary" mat-mini-fab>
+                    <mat-icon>save</mat-icon>
+                </button>
+                <button [disabled]="!statusEditar" class="mx-2" (click)="onCancelarLocal()" color="warn" mat-mini-fab>
+                    <mat-icon>cancel</mat-icon>
+                </button>
+                <button class="mx-2" (click)="onEliminar()" color="warn" mat-mini-fab>
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </ng-container>
+        </ng-container>
+    </div>
+
+    <div class="py-4">
+        <ng-container *ngIf="statusEditar">
+            <mat-form-field class="col-12" appearance="fill">
+                <mat-label>Nombre:</mat-label>
+                <input [(ngModel)]="card.nombre" matInput [value]="card.nombre">
+            </mat-form-field>
+        </ng-container>
+        <ng-container *ngIf="!statusEditar">
+            <h2 mat-card-title class="text-center">{{card.nombre}}</h2>
+        </ng-container>
+    </div>
+    <ng-container *ngIf="statusEditar">
+
+        <label [for]="card.id" class="btnfiles">selecciona una imagen</label>
+        <input [id]="card.id" type="file" (change)="renderImagen($event)" class="fileLogo">
+
+    </ng-container>
+
+    <div class="row justify-content-center">
+
+        <img mat-card-image class="img-fluid" [src]="card.imagen ? card.imagen : 'http://placehold.it/500x325'"
+            [alt]="card.nombre">
+    </div>
+    <mat-card-content>
+        <ng-container *ngIf="statusEditar">
+            <mat-form-field class="col-12" appearance="fill">
+                <mat-label>Descripción:</mat-label>
+                <textarea [(ngModel)]="card.descripcion" matInput>{{card.descripcion}}</textarea>
+            </mat-form-field>
+        </ng-container>
+        <ng-container *ngIf="!statusEditar">
+            <p>
+                {{card.descripcion}}
+            </p>
+        </ng-container>
+    </mat-card-content>
+    <div mat-dialog-actions class="row justify-content-center">
+        <ng-container *ngIf="statusEditar">
+            <mat-form-field class="col-12" appearance="fill">
+                <mat-label>Botón:</mat-label>
+                <input [(ngModel)]="card.boton" matInput [value]="card.boton">
+            </mat-form-field>
+            <mat-form-field class="col-12" appearance="fill">
+                <mat-label>Link:</mat-label>
+                <input [(ngModel)]="card.link" matInput [value]="card.link">
+            </mat-form-field>
+        </ng-container>
+        <ng-container *ngIf="!statusEditar">
+            <a mat-raised-button color="primary" [href]="card.link" target="_blank" rel="noopener noreferrer">{{card.boton}}</a>
+            
+        </ng-container>
+
+        <ng-container *ngIf="statusEditar">
+            <div class="col-12">
+                <app-select-busqueda [seleccionadoId]="selectPage" (selectSeleccionado)="onSelectSeleccionadoP($event)"
+                    [nombreId]="nombreIdP" [nombreText]="nombreTextP" [dataSelect]="pages" [nombreLabel]="nombreLabelP">
+                </app-select-busqueda>
+            </div>
+        </ng-container>
+
+
+
+    </div>
+</mat-card>

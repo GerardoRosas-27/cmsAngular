@@ -1,0 +1,42 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <ng-container *ngIf="editar">
+      <div class="container">
+        <div class="row">
+          <div class="col-1">
+            <button class="botonGuardar" (click)="cambiarContent()" mat-mini-fab color="link">
+              <mat-icon>save</mat-icon>
+          </button>
+          </div>
+          <div class="col-11">
+            <mat-form-field class="col-12" appearance="fill">
+              <mat-label>Nombre de la Página:</mat-label>
+              <input [(ngModel)]="nombreAPP" matInput>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      
+    </ng-container>
+    <ng-container *ngIf="!editar">
+      <span>{{ nombreAPP }}</span>
+      <div class="container">
+        <div class="row justify-content-center">
+          <button (click)="onNavegacion('inicio')" class="mx-2" mat-raised-button color="primary"
+            aria-label="button de navegación">
+            Inicio <mat-icon>supervisor_account</mat-icon>
+          </button>
+          <button (click)="onNavegacion('admin')" class="mx-2" mat-raised-button color="primary"
+            aria-label="button de navegación">
+            Admin <mat-icon>verified_user</mat-icon>
+          </button>
+          <button (click)="cerrarSesion()" class="mx-2" mat-raised-button color="primary"
+            aria-label="button de navegación">
+            cerrar<mat-icon>voice_over_off</mat-icon>
+          </button>
+          
+        </div>
+      </div>
+    </ng-container>
+  </mat-toolbar-row>
+</mat-toolbar>
