@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Card } from '../../models/cards.model';
+import { DtoCard } from '../../models/general.model';
+import { Page } from '../../models/page.model';
 
 @Component({
   selector: 'app-card',
@@ -8,17 +10,24 @@ import { Card } from '../../models/cards.model';
 })
 export class CardComponent implements OnInit {
   @Input() card: Card;
+  @Input() pages: Page[];
+  @Input() selectPage: string;
   @Input() admin?: boolean;
   @Input() nuevo?: boolean;
   @Input() statusEditar?: boolean;
   @Output() guardarCard: EventEmitter<FormData> = new EventEmitter<FormData>();
-  @Output() actualizarCard: EventEmitter<FormData> = new EventEmitter<FormData>();
+  @Output() actualizarCard: EventEmitter<DtoCard> = new EventEmitter<DtoCard>();
   @Output() eliminarCard: EventEmitter<number> = new EventEmitter<number>();
   @Output() cancelarCard: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   cardTemporal: Card;
   selectFile: any;
   originalImagen: string;
+
+  nombreIdP: string = 'id';
+  nombreTextP: string = 'nombre';
+  nombreLabelP: string = 'Selecciona la página';
+ 
   constructor() {
     console.log('data card: ', this.card);
     this.admin = this.admin ? this.admin : false;
@@ -27,6 +36,12 @@ export class CardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+  }
+  onSelectSeleccionadoP(result: string){
+    if(this.selectPage != result){
+      this.card.page = parseInt(result);
+    }
   }
 
   onEditar() {
@@ -41,7 +56,7 @@ export class CardComponent implements OnInit {
   }
   onActualizar() {
     this.statusEditar = false;
-    this.actualizarCard.emit(this.crearFromData());
+    this.actualizarCard.emit({ id: this.card.id , data: this.crearFromData() });
   }
   onCancelarLocal() {
     this.statusEditar = false;
@@ -74,6 +89,7 @@ export class CardComponent implements OnInit {
     formData.append("nombre", this.card.nombre);
     formData.append("descripcion", this.card.descripcion);
     formData.append("boton", this.card.boton);
+    formData.append("page", this.card.page.toString());
     return formData;
   }
 

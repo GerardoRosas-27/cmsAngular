@@ -41,6 +41,7 @@ export class InicioComponent implements OnInit {
   onSelectSeleccionadoP(result: string) {
     console.log("id recivido: ", result);
     if (this.selectPage != result) {
+      console.log("data pages inicio: ", this.dataSelectP);
       this.selectPage = result;
       this.getPagina(parseInt(this.selectPage));
     }

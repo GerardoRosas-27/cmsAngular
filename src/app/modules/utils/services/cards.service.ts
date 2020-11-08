@@ -28,7 +28,7 @@ export class CardsService {
     return this.http.get<any>(this.apiCard + "/" + id );
   }
 
-  putCard(id: number, card: Card) {
+  putCard(id: number, card: FormData) {
     return this.http.put<any>(this.apiCard + "/"+ id, card, { headers: this.createHeader() });
   }
 

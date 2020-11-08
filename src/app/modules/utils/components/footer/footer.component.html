@@ -1,14 +1,23 @@
 <footer class="edit-footer">
     <div class="container pt-4">
         <ng-container *ngIf="editar">
-            <mat-form-field class="col-12" appearance="fill">
-                <mat-label>Contenido:</mat-label>
-                <input [(ngModel)]="content" matInput>
-            </mat-form-field>
+            <div class="row">
+                <div class="col-1">
+                    <button (click)="cambiarContent()" mat-mini-fab color="link">
+                        <mat-icon>save</mat-icon>
+                    </button>
+                </div>
+                <div class="col-11">
+                    <mat-form-field class="col-12" appearance="fill">
+                        <mat-label>Contenido:</mat-label>
+                        <input [disabled]="!editar" [(ngModel)]="content" matInput>
+                    </mat-form-field>
+                </div>
+            </div>
         </ng-container>
         <ng-container *ngIf="!editar">
             <h4 class="text-center">{{ content }}</h4>
         </ng-container>
-        
+
     </div>
 </footer>

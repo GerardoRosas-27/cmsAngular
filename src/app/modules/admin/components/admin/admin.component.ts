@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SpinerCargaComponent } from 'src/app/modules/utils/components/spiner-carga/spiner-carga.component';
 import { Card } from 'src/app/modules/utils/models/cards.model';
-import { DataModal, ResponseMensaje } from 'src/app/modules/utils/models/general.model';
+import { DataModal, DtoCard, ResponseMensaje } from 'src/app/modules/utils/models/general.model';
 import { Page } from 'src/app/modules/utils/models/page.model';
 import { AlertasService } from 'src/app/modules/utils/services/alertas.service';
 import { CardsService } from 'src/app/modules/utils/services/cards.service';
@@ -28,7 +28,8 @@ export class AdminComponent implements OnInit {
   nombreTextP: string = 'nombre';
   nombreLabelP: string = 'Selecciona la página';
   dataSelectP: Page[] = new Array();
- 
+  dataPagesRespaldo: Page[] = new Array();
+
   constructor(
     private cardsService: CardsService,
     private pageService: PageService,
@@ -37,36 +38,39 @@ export class AdminComponent implements OnInit {
     private observableService: ObservablesService) { }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem('token')){
+    if (sessionStorage.getItem('token')) {
       this.alert.alertToast("Ya tienen una sesion activa", 'success');
       this.getPaginas();
-    }else{
+    } else {
       this.iniciarSesionModal();
     }
   }
 
-  iniciarSesionModal(){
-      let data = new DataModal();
-      data.titulo = "Iniciar Sesión";
-      const dialogRef = this.dialog.open(LoginComponent, {
-        width: '700px',
-        height: '700px',
-        data: data
+  iniciarSesionModal() {
+    let data = new DataModal();
+    data.titulo = "Iniciar Sesión";
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '700px',
+      height: '700px',
+      data: data
+    });
+
+    dialogRef.afterClosed().subscribe(
+      (result: any) => {
+        console.log('resultado del modal: ', result);
+        if (result) {
+          this.getPaginas();
+        }
       });
-  
-      dialogRef.afterClosed().subscribe(
-        (result: any) => {
-          console.log('resultado del modal: ',  result);
-          if(result){
-            this.getPaginas();
-          }
-        });
   }
 
   onSelectSeleccionadoP(result: string) {
     console.log("id recivido: ", result);
     if (this.selectPage != result) {
+      this.statusCards = false;
       this.selectPage = result;
+      console.log("data page antes: ", this.dataSelectP);
+      console.log("pages respaldo", this.dataPagesRespaldo);
       this.getPagina(parseInt(this.selectPage));
     }
   }
@@ -80,8 +84,11 @@ export class AdminComponent implements OnInit {
       (result: ResponseMensaje) => {
         this.cargarSpiner.close();
         if (result.cards) {
-          this.statusCards = true;
+          console.log("page: ", id);
+          console.log("paginas: ", this.dataSelectP);
           this.cards = result.cards;
+          this.statusCards = true;
+          
           this.alert.alertToast(result.mensaje, 'success');
         }
       }, error => {
@@ -101,12 +108,15 @@ export class AdminComponent implements OnInit {
       (result: ResponseMensaje) => {
         this.cargarSpiner ? this.cargarSpiner.close() : null;
         if (result.pages.length > 0) {
+          
+          this.dataPagesRespaldo = result.pages;
+          console.log("pages respaldo", this.dataPagesRespaldo);
           this.selectPage = result.pages[0].id.toString();
           this.infoPageDefault = result.pages[0];
           this.setHeaderFooter(this.infoPageDefault);
-          this.getCardsPage(this.infoPageDefault.id);
           this.dataSelectP = result.pages;
           this.statusSelectP = true;
+          this.getCardsPage(this.infoPageDefault.id);
         }
       }, error => {
         console.log(error);
@@ -125,6 +135,7 @@ export class AdminComponent implements OnInit {
         this.cargarSpiner ? this.cargarSpiner.close() : null;
         if (result.pages.length > 0) {
           this.infoPageDefault = result.pages[0];
+          this.selectPage = id.toString();
           this.setHeaderFooter(this.infoPageDefault);
           this.getCardsPage(this.infoPageDefault.id);
         }
@@ -135,18 +146,39 @@ export class AdminComponent implements OnInit {
     )
   }
 
-  setHeaderFooter(infoPageDefault: Page){
+  setHeaderFooter(infoPageDefault: Page) {
     this.observableService.setHader(infoPageDefault.nombre);
     this.observableService.setFooter(infoPageDefault.footer);
   }
 
-  onActualizarPage(page: FormData){
+  onActualizarPage(page: FormData) {
+    this.cargarSpiner = this.dialog.open(SpinerCargaComponent, {
+      width: '300px',
+      height: '300px',
+    });
     console.log("page para actualizar");
     this.pageService.putPage(parseInt(this.selectPage), page).subscribe(
-      (result: ResponseMensaje)=>{
-        console.log(result);
-      }, error =>{
-        console.log(error);
+      (result: ResponseMensaje) => {
+        if (result.mensaje) {
+          this.alert.alertToast(result.mensaje, 'success');
+        }
+      }, error => {
+        this.alert.alertToast(error.mensaje, 'error');
+      })
+  }
+
+  onActualizarCard(data: DtoCard) {
+    this.cargarSpiner = this.dialog.open(SpinerCargaComponent, {
+      width: '300px',
+      height: '300px',
+    });
+    this.cardsService.putCard(data.id, data.data).subscribe(
+      (result: ResponseMensaje) => {
+        if (result.mensaje) {
+          this.alert.alertToast(result.mensaje, 'success');
+        }
+      }, error => {
+        this.alert.alertToast(error.mensaje, 'error');
       }
     )
   }

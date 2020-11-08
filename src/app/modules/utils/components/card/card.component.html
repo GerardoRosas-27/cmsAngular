@@ -70,5 +70,17 @@
         <ng-container *ngIf="!statusEditar">
             <button mat-raised-button color="primary">{{card.boton}}</button>
         </ng-container>
+
+        <ng-container *ngIf="statusEditar">
+            <div class="col-12">
+                    <app-select-busqueda [seleccionadoId]="selectPage"
+                        (selectSeleccionado)="onSelectSeleccionadoP($event)" [nombreId]="nombreIdP"
+                        [nombreText]="nombreTextP" [dataSelect]="pages" [nombreLabel]="nombreLabelP">
+                    </app-select-busqueda>
+            </div>
+        </ng-container>
+
+
+
     </div>
 </mat-card>

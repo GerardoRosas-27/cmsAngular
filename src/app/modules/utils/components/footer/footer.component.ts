@@ -10,11 +10,17 @@ export class FooterComponent implements OnInit {
 
   @Input() content?: string;
   @Input() editar?: boolean;
-  
-  constructor(private observableService: ObservablesService) { 
-    this.content = this.content ? this.content: "";
+
+
+  constructor(private observableService: ObservablesService) {
+    this.content = this.content ? this.content : "";
   }
   ngOnInit(): void {
+  }
+
+  cambiarContent() {
+    this.editar = false;
+    this.observableService.setFooter(this.content);
   }
 
 }

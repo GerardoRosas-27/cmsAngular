@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ObservablesService } from '../../services/observables.service';
 
 @Component({
   selector: 'app-header',
@@ -10,12 +11,19 @@ export class HeaderComponent implements OnInit {
   @Input() nombreAPP?: string;
   @Input() editar?: boolean;
   
-  constructor(private router: Router) { 
+  constructor(private router: Router,
+    private observableService: ObservablesService) { 
     this.nombreAPP = this.nombreAPP ? this.nombreAPP: "Mi APP"; 
   }
 
   ngOnInit(): void {
   }
+
+  cambiarContent() {
+    this.editar = false;
+    this.observableService.setHader(this.nombreAPP);
+  }
+  
   onNavegacion(page: string){
   console.log("entro a la navegacion");
     this.router.navigate([page]);

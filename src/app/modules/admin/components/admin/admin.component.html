@@ -16,7 +16,7 @@
 <div class="container principal">
     <div class="row">
         <ng-container *ngIf="statusCards">
-            <app-card class="col-md-4 py-3 px-2" *ngFor="let card of cards" [card]="card" [admin]="true"></app-card>
+            <app-card class="col-md-4 py-3 px-2" *ngFor="let card of cards" [card]="card" [admin]="true" [selectPage]="selectPage" [pages]="dataSelectP" (actualizarCard)="onActualizarCard($event)"></app-card>
         </ng-container>
     </div>
 </div>

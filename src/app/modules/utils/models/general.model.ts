@@ -23,3 +23,8 @@ export interface DataSelect{
     id: string;
     text: string;
 }
+
+export interface DtoCard{
+    id: number;
+    data: FormData;
+}

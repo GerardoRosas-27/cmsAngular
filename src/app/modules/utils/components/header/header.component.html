@@ -1,10 +1,22 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <ng-container *ngIf="editar">
-      <mat-form-field class="col-12" appearance="fill">
-        <mat-label>Nombre de la Página:</mat-label>
-        <input [(ngModel)]="nombreAPP" matInput>
-      </mat-form-field>
+      <div class="container">
+        <div class="row">
+          <div class="col-1">
+            <button class="botonGuardar" (click)="cambiarContent()" mat-mini-fab color="link">
+              <mat-icon>save</mat-icon>
+          </button>
+          </div>
+          <div class="col-11">
+            <mat-form-field class="col-12" appearance="fill">
+              <mat-label>Nombre de la Página:</mat-label>
+              <input [(ngModel)]="nombreAPP" matInput>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      
     </ng-container>
     <ng-container *ngIf="!editar">
       <span>{{ nombreAPP }}</span>

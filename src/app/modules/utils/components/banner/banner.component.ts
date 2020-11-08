@@ -52,10 +52,12 @@ export class BannerComponent implements OnInit {
   }
   onGuardar() {
     this.statusEditar = false;
+    this.observableService.setEditar(false);
     this.guardarpage.emit(this.crearFromData());
   }
   onActualizar() {
     this.statusEditar = false;
+    this.observableService.setEditar(false);
     this.actualizarpage.emit(this.crearFromData());
   }
   onCancelarLocal() {
