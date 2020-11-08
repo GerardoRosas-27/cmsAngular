@@ -57,11 +57,13 @@ export class LoginComponent implements OnInit {
             this.dialogRef.close(true);
             sessionStorage.setItem('token', result.token);
             this.alertas.alertToast(result.mensaje, 'success');
+          }else{
+            this.alertas.alertToast(result.mensaje, 'error')
           }
         }, error =>{
           this.cargarSpiner.close();
           console.log(error);
-          this.alertas.alertToast(error.mensaje, 'error')
+          this.alertas.alertToast(error.error.mensaje, 'error')
         }
       )
     }else{

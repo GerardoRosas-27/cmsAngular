@@ -29,7 +29,9 @@ export class AdminComponent implements OnInit {
   nombreLabelP: string = 'Selecciona la página';
   dataSelectP: Page[] = new Array();
   dataPagesRespaldo: Page[] = new Array();
-
+  nuevoPage: boolean = false;
+  nuevoCard: boolean = false;
+  dataCard: Card;
   constructor(
     private cardsService: CardsService,
     private pageService: PageService,
@@ -44,6 +46,13 @@ export class AdminComponent implements OnInit {
     } else {
       this.iniciarSesionModal();
     }
+  }
+  onNuevoPage(){
+    this.nuevoPage = true;
+    this.observableService.setEditar(true);
+  }
+  onNuevoCard(){
+    this.nuevoCard = true;
   }
 
   iniciarSesionModal() {
@@ -94,7 +103,7 @@ export class AdminComponent implements OnInit {
       }, error => {
         this.cargarSpiner.close();
         console.error(error);
-        this.alert.alertToast(error.mensaje, 'error');
+        this.alert.alertToast(error.error.mensaje, 'error');
       }
     )
   }
@@ -159,12 +168,37 @@ export class AdminComponent implements OnInit {
     console.log("page para actualizar");
     this.pageService.putPage(parseInt(this.selectPage), page).subscribe(
       (result: ResponseMensaje) => {
+        this.cargarSpiner.close();
         if (result.mensaje) {
           this.alert.alertToast(result.mensaje, 'success');
         }
       }, error => {
-        this.alert.alertToast(error.mensaje, 'error');
+        this.cargarSpiner.close();
+        this.alert.alertToast(error.error.mensaje, 'error');
       })
+  }
+  onGuardarPage(page: FormData){
+    this.cargarSpiner = this.dialog.open(SpinerCargaComponent, {
+      width: '300px',
+      height: '300px',
+    });
+    console.log("page para guardar");
+    this.pageService.postPage(page).subscribe(
+      (result: ResponseMensaje) => {
+        this.cargarSpiner.close();
+        if (result.mensaje) {
+          this.alert.alertToast(result.mensaje, 'success');
+        }
+      }, error => {
+        this.cargarSpiner.close();
+        this.alert.alertToast(error.error.mensaje, 'error');
+      })
+  }
+  onCancelarPage(page: boolean){
+    this.nuevoPage = page;
+  }
+  onEliminarPage(){
+    console.log("eliminar page:", this.selectPage);
   }
 
   onActualizarCard(data: DtoCard) {
@@ -174,11 +208,57 @@ export class AdminComponent implements OnInit {
     });
     this.cardsService.putCard(data.id, data.data).subscribe(
       (result: ResponseMensaje) => {
+        this.cargarSpiner.close();
         if (result.mensaje) {
           this.alert.alertToast(result.mensaje, 'success');
+          this.getCardsPage(parseInt(this.selectPage));
         }
       }, error => {
-        this.alert.alertToast(error.mensaje, 'error');
+        this.cargarSpiner.close();
+        this.alert.alertToast(error.error.mensaje, 'error');
+      }
+    )
+  }
+  onGuardarNuevoCard(data: FormData){
+    console.log("guardar Card: " , data);
+    this.cargarSpiner = this.dialog.open(SpinerCargaComponent, {
+      width: '300px',
+      height: '300px',
+    });
+    this.cardsService.postCard(data).subscribe(
+      (result: ResponseMensaje) => {
+        this.cargarSpiner.close();
+        if (result.mensaje) {
+          this.alert.alertToast(result.mensaje, 'success');
+          this.nuevoCard = false;
+          this.getCardsPage(parseInt(this.selectPage));
+        }
+      }, error => {
+        this.cargarSpiner.close();
+        this.alert.alertToast(error.error.mensaje, 'error');
+      }
+    )
+  }
+  onCancelarNuevoCard(cancelar: boolean){
+    this.nuevoCard = cancelar;
+  }
+  onEliminarCard(id: number){
+    console.log("eliminar Card: " , id);
+    this.cargarSpiner = this.dialog.open(SpinerCargaComponent, {
+      width: '300px',
+      height: '300px',
+    });
+    this.cardsService.deleteCard(id).subscribe(
+      (result: ResponseMensaje) => {
+        this.cargarSpiner.close();
+        if (result.mensaje) {
+          this.alert.alertToast(result.mensaje, 'success');
+          this.nuevoCard = false;
+          this.getCardsPage(parseInt(this.selectPage));
+        }
+      }, error => {
+        this.cargarSpiner.close();
+        this.alert.alertToast(error.error.mensaje, 'error');
       }
     )
   }

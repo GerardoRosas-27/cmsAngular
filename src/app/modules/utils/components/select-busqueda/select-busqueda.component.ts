@@ -39,8 +39,6 @@ export class SelectBusquedaComponent implements OnInit {
 
   filtrarSelect() {
     let result = this.valorFiltrar ? this.filterData(this.valorFiltrar, this.dataSelectBuscar) : this.dataSelectBuscar.slice();
-    console.log("result: ");
-    console.log(result);
     if (result.length == 0) {
       this.dataSelectBuscarResult = [{ id: '0', text: "sin resultados" }];
     } else {
@@ -66,6 +64,7 @@ export class SelectBusquedaComponent implements OnInit {
       this.dataSelectBuscar.push(data);
     });
     this.dataSelectBuscarResult = this.dataSelectBuscar;
+    console.log("select data interna: ", this.dataSelectBuscarResult);
     this.statusSelect = true;
   }
 

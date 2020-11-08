@@ -1,6 +1,5 @@
 import { Component, OnInit} from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { HeaderComponent } from 'src/app/modules/utils/components/header/header.component';
 import { SpinerCargaComponent } from 'src/app/modules/utils/components/spiner-carga/spiner-carga.component';
 import { Card } from 'src/app/modules/utils/models/cards.model';
 import { ResponseMensaje } from 'src/app/modules/utils/models/general.model';
@@ -26,7 +25,7 @@ export class InicioComponent implements OnInit {
   nombreIdP: string = 'id';
   nombreTextP: string = 'nombre';
   nombreLabelP: string = 'Selecciona la página';
-  dataSelectP: Page[] = new Array();
+  dataSelectPage: Page[] = new Array();
 
   constructor(
     private cardsService: CardsService,
@@ -41,7 +40,7 @@ export class InicioComponent implements OnInit {
   onSelectSeleccionadoP(result: string) {
     console.log("id recivido: ", result);
     if (this.selectPage != result) {
-      console.log("data pages inicio: ", this.dataSelectP);
+      console.log("data pages inicio: ", this.dataSelectPage);
       this.selectPage = result;
       this.getPagina(parseInt(this.selectPage));
     }
@@ -63,7 +62,7 @@ export class InicioComponent implements OnInit {
       }, error => {
         this.cargarSpiner.close();
         console.error(error);
-        this.alert.alertToast(error.mensaje, 'error');
+        this.alert.alertToast(error.error.mensaje, 'error');
       }
     )
   }
@@ -81,12 +80,13 @@ export class InicioComponent implements OnInit {
           this.infoPageDefault = result.pages[0];
           this.setHeaderFooter(this.infoPageDefault);
           this.getCardsPage(this.infoPageDefault.id);
-          this.dataSelectP = result.pages;
+          this.dataSelectPage = result.pages;
           this.statusSelectP = true;
         }
       }, error => {
         console.log(error);
         this.cargarSpiner ? this.cargarSpiner.close() : null;
+        this.alert.alertToast(error.error.mensaje, 'error');
       }
     )
   }
@@ -107,6 +107,7 @@ export class InicioComponent implements OnInit {
       }, error => {
         console.log(error);
         this.cargarSpiner ? this.cargarSpiner.close() : null;
+        this.alert.alertToast(error.error.mensaje, 'error');
       }
     )
   }

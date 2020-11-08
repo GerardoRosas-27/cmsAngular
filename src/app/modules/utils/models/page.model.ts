@@ -5,5 +5,6 @@ export class Page {
     descripcion: string;
     imagen?: string;
     boton: string;
+    link: string;
     footer: string;
 }

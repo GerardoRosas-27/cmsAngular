@@ -9,7 +9,7 @@ import { Page } from '../../models/page.model';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  @Input() card: Card;
+  @Input() card?: Card;
   @Input() pages: Page[];
   @Input() selectPage: string;
   @Input() admin?: boolean;
@@ -29,6 +29,7 @@ export class CardComponent implements OnInit {
   nombreLabelP: string = 'Selecciona la página';
  
   constructor() {
+    this.card = this.card ? this.card : new Card();
     console.log('data card: ', this.card);
     this.admin = this.admin ? this.admin : false;
     this.nuevo = this.nuevo ? this.nuevo : false;
@@ -39,9 +40,7 @@ export class CardComponent implements OnInit {
     
   }
   onSelectSeleccionadoP(result: string){
-    if(this.selectPage != result){
       this.card.page = parseInt(result);
-    }
   }
 
   onEditar() {
@@ -66,7 +65,8 @@ export class CardComponent implements OnInit {
     console.log(this.card);
   }
   onCancelar() {
-    this.cancelarCard.emit(true);
+    console.log("cancelar");
+    this.cancelarCard.emit(false);
   }
   onEliminar() {
     this.eliminarCard.emit(this.card.id);
@@ -89,6 +89,7 @@ export class CardComponent implements OnInit {
     formData.append("nombre", this.card.nombre);
     formData.append("descripcion", this.card.descripcion);
     formData.append("boton", this.card.boton);
+    formData.append("link", this.card.link);
     formData.append("page", this.card.page.toString());
     return formData;
   }

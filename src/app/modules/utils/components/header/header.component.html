@@ -24,12 +24,17 @@
         <div class="row justify-content-center">
           <button (click)="onNavegacion('inicio')" class="mx-2" mat-raised-button color="primary"
             aria-label="button de navegación">
-            Inicio <mat-icon>menu</mat-icon>
+            Inicio <mat-icon>supervisor_account</mat-icon>
           </button>
           <button (click)="onNavegacion('admin')" class="mx-2" mat-raised-button color="primary"
             aria-label="button de navegación">
-            Admin <mat-icon>menu</mat-icon>
+            Admin <mat-icon>verified_user</mat-icon>
           </button>
+          <button (click)="cerrarSesion()" class="mx-2" mat-raised-button color="primary"
+            aria-label="button de navegación">
+            cerrar<mat-icon>voice_over_off</mat-icon>
+          </button>
+          
         </div>
       </div>
     </ng-container>

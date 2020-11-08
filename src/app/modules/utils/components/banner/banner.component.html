@@ -20,9 +20,6 @@
                 <button [disabled]="!statusEditar" class="mx-2" (click)="onCancelarLocal()" color="warn" mat-mini-fab>
                     <mat-icon>cancel</mat-icon>
                 </button>
-                <button class="mx-2" (click)="onEliminar()" color="warn" mat-mini-fab>
-                    <mat-icon>delete</mat-icon>
-                </button>
             </ng-container>
         </ng-container>
     </div>
@@ -63,10 +60,14 @@
                     <mat-label>Botón:</mat-label>
                     <input [(ngModel)]="page.boton" matInput [value]="page.boton">
                 </mat-form-field>
+                <mat-form-field class="col-12" appearance="fill">
+                    <mat-label>Link:</mat-label>
+                    <input [(ngModel)]="page.link" matInput [value]="page.link">
+                </mat-form-field>
             </ng-container>
             <ng-container *ngIf="!statusEditar">
-                <p><a href="#"><label class="boton-banner">{{ page.boton }}</label> 
-                </a></p>
+                <p><a [href]="page.link" target="_blank" rel="noopener noreferrer"><label class="boton-banner">{{ page.boton }}</label></a>
+                </p>
             </ng-container>
             
         </div>

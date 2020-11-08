@@ -28,5 +28,9 @@ export class HeaderComponent implements OnInit {
   console.log("entro a la navegacion");
     this.router.navigate([page]);
   }
+  cerrarSesion(){
+    sessionStorage.clear();
+    this.router.navigate(['inicio']);
+  }
 
 }

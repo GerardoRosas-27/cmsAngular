@@ -45,7 +45,9 @@
     </ng-container>
 
     <div class="row justify-content-center">
-        <img mat-card-image class="img-fluid" [src]="card.imagen" [alt]="card.nombre">
+
+        <img mat-card-image class="img-fluid" [src]="card.imagen ? card.imagen : 'http://placehold.it/500x325'"
+            [alt]="card.nombre">
     </div>
     <mat-card-content>
         <ng-container *ngIf="statusEditar">
@@ -66,17 +68,21 @@
                 <mat-label>Botón:</mat-label>
                 <input [(ngModel)]="card.boton" matInput [value]="card.boton">
             </mat-form-field>
+            <mat-form-field class="col-12" appearance="fill">
+                <mat-label>Link:</mat-label>
+                <input [(ngModel)]="card.link" matInput [value]="card.link">
+            </mat-form-field>
         </ng-container>
         <ng-container *ngIf="!statusEditar">
-            <button mat-raised-button color="primary">{{card.boton}}</button>
+            <a mat-raised-button color="primary" [href]="card.link" target="_blank" rel="noopener noreferrer">{{card.boton}}</a>
+            
         </ng-container>
 
         <ng-container *ngIf="statusEditar">
             <div class="col-12">
-                    <app-select-busqueda [seleccionadoId]="selectPage"
-                        (selectSeleccionado)="onSelectSeleccionadoP($event)" [nombreId]="nombreIdP"
-                        [nombreText]="nombreTextP" [dataSelect]="pages" [nombreLabel]="nombreLabelP">
-                    </app-select-busqueda>
+                <app-select-busqueda [seleccionadoId]="selectPage" (selectSeleccionado)="onSelectSeleccionadoP($event)"
+                    [nombreId]="nombreIdP" [nombreText]="nombreTextP" [dataSelect]="pages" [nombreLabel]="nombreLabelP">
+                </app-select-busqueda>
             </div>
         </ng-container>
 
